@@ -1,6 +1,6 @@
 html
   body
-    //
+    //-
       This template loads for the 'tab.friend-detail' state (app.js)
       'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
       The FriendsCtrl pulls data from the Friends service (service.js)
@@ -8,8 +8,5 @@ html
     ion-view(view-title='{{friend.name}}')
       ion-content.padding
         img(ng-src='{{friend.face}}', style='width: 64px; height: 64px')
-        |     
         h3 Notes
-        |     
-        p
-          | {{friend.notes}}
+        p {{friend.notes}}
