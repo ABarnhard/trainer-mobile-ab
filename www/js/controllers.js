@@ -6,8 +6,25 @@
 
   }])
 
-  .controller('LoginCtrl', ['$scope', 'User', function($scope, User){
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'User', function($rootScope, $scope, $state, User){
+    $scope.disabled = false;
+    $scope.user = {};
 
+    if($rootScope.rootUser){
+      $state.go('tab.dash');
+    }
+
+    $scope.login = function(user){
+      $scope.disabled = !$scope.disabled;
+      User.login(user).then(function(res){
+        $rootScope.rootUser = res.data;
+        $state.go('tab.dash');
+      }, function(res){
+        $scope.disabled = !$scope.disabled;
+        console.log('error logging in');
+        $scope.user = {};
+      });
+    };
   }])
 
   .controller('ChatsCtrl', ['$scope', 'Chats', function($scope, Chats){

@@ -1,14 +1,14 @@
 html
   body
-    ion-view(view-title='Welcome To ngTrainer')
+    ion-view(view-title='ngTrainer')
       ion-content
         ion-list
           label.item.item-input
             span.input-label Email
-            input(type='text')
+            input(type='text', ng-model='user.email')
           label.item.item-input
             span.input-label Password
-            input(type='password')
+            input(type='password', ng-model='user.password')
         .padded-row
-          button.button.button-block.button-energized Login
+          button.button.button-block.button-positive(ng-click='login(user)', ng-disabled='disabled') Login
 
