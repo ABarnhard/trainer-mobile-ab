@@ -2,30 +2,24 @@
   'use strict';
   angular.module('trainer.controllers', [])
 
-  .controller('DashCtrl', function($scope){})
+  .controller('DashCtrl', ['$scope', function($scope){
 
-  .controller('ChatsCtrl', function($scope, Chats){
+  }])
+
+  .controller('ChatsCtrl', ['$scope', 'Chats', function($scope, Chats){
     $scope.chats = Chats.all();
     $scope.remove = function(chat){
       Chats.remove(chat);
     };
-  })
+  }])
 
-  .controller('ChatDetailCtrl', function($scope, $stateParams, Chats){
+  .controller('ChatDetailCtrl', ['$scope', '$stateParams', 'Chats', function($scope, $stateParams, Chats){
     $scope.chat = Chats.get($stateParams.chatId);
-  })
+  }])
 
-  .controller('FriendsCtrl', function($scope, Friends){
-    $scope.friends = Friends.all();
-  })
-
-  .controller('FriendDetailCtrl', function($scope, $stateParams, Friends){
-    $scope.friend = Friends.get($stateParams.friendId);
-  })
-
-  .controller('AccountCtrl', function($scope){
+  .controller('AccountCtrl', ['$scope', function($scope){
     $scope.settings = {
       enableFriends: true
     };
-  });
+  }]);
 })();
