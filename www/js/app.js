@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  angular.module('trainer', ['ionic', 'trainer.controllers', 'trainer.services'])
+  angular.module('trainer', ['ionic', 'trainer.controllers', 'trainer.services', 'trainer.values'])
   .run(function($ionicPlatform){
     $ionicPlatform.ready(function(){
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -17,6 +17,12 @@
   .config(function($stateProvider, $urlRouterProvider){
     $stateProvider
     // setup an abstract state for the tabs directive
+    .state('login', {
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'LoginCtrl'
+    })
+
     .state('tab', {
       url: '/tab',
       abstract: true,
@@ -65,7 +71,7 @@
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/account');
+    $urlRouterProvider.otherwise('/login');
 
   });
 })();

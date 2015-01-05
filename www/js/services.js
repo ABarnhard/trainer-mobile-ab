@@ -1,6 +1,22 @@
 (function(){
   'use strict';
   angular.module('trainer.services', [])
+
+  .factory('User', ['$http', 'origin', function($http, origin){
+    function login(user){
+      return $http.post(origin + '/login', user);
+    }
+
+    function logout(){
+      return $http.delete(origin + '/logout');
+    }
+
+    return {
+      login: login,
+      logout: logout
+    };
+  }])
+
   .factory('Chats', [function(){
     var chats = [{
       id: 0,

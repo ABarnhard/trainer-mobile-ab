@@ -6,6 +6,10 @@
 
   }])
 
+  .controller('LoginCtrl', ['$scope', 'User', function($scope, User){
+
+  }])
+
   .controller('ChatsCtrl', ['$scope', 'Chats', function($scope, Chats){
     $scope.chats = Chats.all();
     $scope.remove = function(chat){
