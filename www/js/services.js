@@ -48,9 +48,14 @@
       return $http.get(origin + '/regimes/' + regimeId + '/phases');
     }
 
+    function getWorkouts(phaseId){
+      return $http.get(origin + '/phases/' + phaseId + '/workouts');
+    }
+
     return {
       getRegimes: getRegimes,
-      getPhases: getPhases
+      getPhases: getPhases,
+      getWorkouts: getWorkouts
     };
   }])
 

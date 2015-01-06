@@ -48,8 +48,36 @@
     });
   }])
 
-  .controller('ChatDetailCtrl', ['$scope', '$stateParams', 'Chats', function($scope, $stateParams, Chats){
-    $scope.chat = Chats.get($stateParams.chatId);
+  .controller('WorkoutsTabCtrl', ['$scope', '$stateParams', '$ionicPopup', 'Workout', function($scope, $stateParams, $ionicPopup, Workout){
+    $scope.workouts = [];
+
+    Workout.getWorkouts($stateParams.phaseId).then(function(res){
+      $scope.workouts = res.data.workouts;
+    });
+
+    $scope.showConfirm = function(workout){
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Begin Workout',
+        template: 'Are you sure you want begin ' + workout.workoutName + '?'
+      });
+      confirmPopup.then(function(res){
+        if(res){
+          console.log('You are sure');
+        }else{
+          console.log('You are not sure');
+        }
+      });
+    };
+  }])
+
+  .controller('WorkoutCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', 'Workout', function($scope, $stateParams, $ionicSlideBoxDelegate, Workout){
+    if($stateParams.dayId){
+      console.log('dayId:', $stateParams.dayId);
+    }else if($stateParams.wkId){
+      console.log('wkId:', $stateParams.wkId);
+    }else{
+      console.log('This is all busted...in the workouts controller');
+    }
   }])
 
   .controller('AccountCtrl', ['$scope', function($scope){

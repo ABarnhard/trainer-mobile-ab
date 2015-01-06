@@ -1,4 +1,5 @@
-ion-view(view-title='{{chat.name}}')
-  ion-content.padding
-    img(ng-src='{{chat.face}}', style='width: 64px; height: 64px')
-    p {{chat.lastText}}
+ion-view(view-title='Workouts')
+  ion-content
+    ion-list
+      ion-item.item(ng-repeat='w in workouts', type='item-text-wrap', ng-click='showConfirm(w)')
+        | {{w.workoutName}}

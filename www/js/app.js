@@ -25,6 +25,12 @@
       controller: 'LoginCtrl'
     })
 
+    .state('workout', {
+      url: '/workout?wkId&dayId',
+      templateUrl: 'templates/workout.html',
+      controller: 'WorkoutCtrl'
+    })
+
     .state('tab', {
       url: '/tab',
       abstract: true,
@@ -66,8 +72,8 @@
       url: '/regimes/:regimeId/phases/:phaseId',
       views: {
         'tab-workouts': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          templateUrl: 'templates/tab-workouts.html',
+          controller: 'WorkoutsTabCtrl'
         }
       }
     })

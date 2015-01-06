@@ -8,5 +8,5 @@ html
           .item.item-divider(ng-hide='day') No Workout Scheduled
           .item.item-divider(ng-show='day') Workout: {{day.title}}
           .item.item-body(ng-show='day')
-            button.button.button-block.button-positive START
+            a.button.button-block.button-positive(href='#/workout?dayId={{day.id}}') START
 

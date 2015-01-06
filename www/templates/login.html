@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <ion-view view-title="ngTrainer">
-      <ion-content>
-        <ion-list>
-          <label class="item item-input"><span class="input-label">Email</span>
-            <input type="text" ng-model="user.email">
-          </label>
-          <label class="item item-input"><span class="input-label">Password</span>
-            <input type="password" ng-model="user.password">
-          </label>
-        </ion-list>
-        <div class="padded-row">
-          <button ng-click="login(user)" ng-disabled="disabled" class="button button-block button-positive">Login</button>
-        </div>
-      </ion-content>
-    </ion-view>
-  </body>
-</html>
+
+<ion-view view-title="ngTrainer">
+  <ion-content>
+    <ion-list>
+      <label class="item item-input"><span class="input-label">Email</span>
+        <input type="text" ng-model="user.email">
+      </label>
+      <label class="item item-input"><span class="input-label">Password</span>
+        <input type="password" ng-model="user.password">
+      </label>
+    </ion-list>
+    <div class="padded-row">
+      <button ng-click="login(user)" ng-disabled="disabled" class="button button-block button-positive">Login</button>
+    </div>
+  </ion-content>
+</ion-view>
