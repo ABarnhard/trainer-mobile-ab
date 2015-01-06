@@ -1,15 +1,21 @@
 
 <ion-view view-title="HIIT It">
-  <ion-nav-buttons side="primary">
-    <button class="button">Test</button>
+  <ion-nav-buttons side="primary"><a href="#/tab/dash" class="button">Exit</a></ion-nav-buttons>
+  <ion-nav-buttons side="secondary">
+    <button ng-click="prevSlide()" class="button">Prev</button>
+    <button ng-click="nextSlide()" class="button">Next</button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-slide-box delegate-handle="wkSlider" show-pager="false">
+    <ion-slide-box delegate-handle="wkSlider" show-pager="false" active-slide="slidestop($index)">
       <ion-slide>
-        <h1>Slide 1</h1>
+        <div style="background-color:red;" class="box">
+          <h1>Slide 1</h1>
+        </div>
       </ion-slide>
       <ion-slide>
-        <h1>Slide 2</h1>
+        <div style="background-color:blue;" class="box">
+          <h1>Slide 2</h1>
+        </div>
       </ion-slide>
     </ion-slide-box>
   </ion-content>

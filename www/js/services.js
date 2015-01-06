@@ -52,10 +52,15 @@
       return $http.get(origin + '/phases/' + phaseId + '/workouts');
     }
 
+    function findByDayId(dayId){
+      return $http.get(origin + '/workouts/day/' + dayId);
+    }
+
     return {
       getRegimes: getRegimes,
       getPhases: getPhases,
-      getWorkouts: getWorkouts
+      getWorkouts: getWorkouts,
+      findByDayId: findByDayId
     };
   }])
 

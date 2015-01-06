@@ -1,9 +1,14 @@
 ion-view(view-title='HIIT It')
   ion-nav-buttons(side='primary')
-    button.button Test
+    a.button(href='#/tab/dash') Exit
+  ion-nav-buttons(side='secondary')
+    button.button(ng-click='prevSlide()') Prev
+    button.button(ng-click='nextSlide()') Next
   ion-content
-    ion-slide-box(delegate-handle='wkSlider', show-pager='false')
+    ion-slide-box(delegate-handle='wkSlider', show-pager='false', active-slide='slidestop($index)')
       ion-slide
-        h1 Slide 1
+        .box(style='background-color:red;')
+          h1 Slide 1
       ion-slide
-        h1 Slide 2
+        .box(style='background-color:blue;')
+          h1 Slide 2

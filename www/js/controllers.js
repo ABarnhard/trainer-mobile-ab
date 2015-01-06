@@ -48,7 +48,7 @@
     });
   }])
 
-  .controller('WorkoutsTabCtrl', ['$scope', '$stateParams', '$ionicPopup', 'Workout', function($scope, $stateParams, $ionicPopup, Workout){
+  .controller('WorkoutsTabCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', 'Workout', function($scope, $state, $stateParams, $ionicPopup, Workout){
     $scope.workouts = [];
 
     Workout.getWorkouts($stateParams.phaseId).then(function(res){
@@ -63,8 +63,7 @@
       confirmPopup.then(function(res){
         if(res){
           console.log('You are sure');
-        }else{
-          console.log('You are not sure');
+          $state.go('workout', {wkId: workout.workoutId});
         }
       });
     };
@@ -73,11 +72,26 @@
   .controller('WorkoutCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', 'Workout', function($scope, $stateParams, $ionicSlideBoxDelegate, Workout){
     if($stateParams.dayId){
       console.log('dayId:', $stateParams.dayId);
+      Workout.findByDayId($stateParams.dayId).then(function(res){
+        $scope.workout = res.data.workout;
+      });
     }else if($stateParams.wkId){
       console.log('wkId:', $stateParams.wkId);
     }else{
       console.log('This is all busted...in the workouts controller');
     }
+    $scope.nextSlide = function(){
+      $ionicSlideBoxDelegate.next();
+    };
+
+    $scope.prevSlide = function(){
+      $ionicSlideBoxDelegate.previous();
+    };
+
+    $scope.slidestop = function(index){
+      $ionicSlideBoxDelegate.enableSlide(false);
+    };
+
   }])
 
   .controller('AccountCtrl', ['$scope', function($scope){

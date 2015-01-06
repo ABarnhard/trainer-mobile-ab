@@ -2,3 +2,17 @@
 .padded-row {
   padding: 0 1em;
 }
+
+.slider {
+  height: 100%;
+  text-align: center;
+}
+
+.scroll {
+  height: 100%;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+}
