@@ -77,9 +77,11 @@
       });
     }else if($stateParams.wkId){
       console.log('wkId:', $stateParams.wkId);
-    }else{
-      console.log('This is all busted...in the workouts controller');
+      Workout.findById($stateParams.wkId).then(function(res){
+        $scope.workout = res.data.workout
+      });
     }
+
     $scope.nextSlide = function(){
       $ionicSlideBoxDelegate.next();
     };

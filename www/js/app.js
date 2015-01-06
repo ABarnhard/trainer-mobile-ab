@@ -18,7 +18,6 @@
     $httpProvider.defaults.withCredentials = true;
 
     $stateProvider
-    // setup an abstract state for the tabs directive
     .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',

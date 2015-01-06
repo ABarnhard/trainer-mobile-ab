@@ -56,10 +56,15 @@
       return $http.get(origin + '/workouts/day/' + dayId);
     }
 
+    function findById(wkId){
+      return $http.get(origin + '/workouts/' + wkId);
+    }
+
     return {
       getRegimes: getRegimes,
       getPhases: getPhases,
       getWorkouts: getWorkouts,
+      findById: findById,
       findByDayId: findByDayId
     };
   }])

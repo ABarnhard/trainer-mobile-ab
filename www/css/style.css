@@ -16,3 +16,12 @@
   width: 100%;
   height: 100%;
 }
+
+.workout-table, .exercise-table {
+  display: inline-block;
+  width: 100%;
+}
+
+.exercise-table th, .exercise-table td {
+  padding: .1em;
+}

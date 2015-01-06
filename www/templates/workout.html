@@ -9,7 +9,42 @@
     <ion-slide-box delegate-handle="wkSlider" show-pager="false" active-slide="slidestop($index)">
       <ion-slide>
         <div style="background-color:red;" class="box">
-          <h1>Slide 1</h1>
+          <button ng-click="startWorkout()" class="button button-block button-positive">Start {{workout.workoutName}}</button>
+          <table class="workout-table">
+            <tbody>
+              <tr ng-repeat="set in workout.sets">
+                <td colspan="5" style="text-align:center;">
+                  <table style="display:inline-block;" class="exercise-table">
+                    <thead>
+                      <tr ng-show="$index === 0">
+                        <th style="width:32px;">Sets</th>
+                        <th style="text-align:left;width:130px;">Exercises</th>
+                        <th style="width:50px;">Reps</th>
+                        <th style="width:60px;">Weight</th>
+                        <th style="width:50px;">Rest</th>
+                      </tr>
+                      <tr ng-show="$index !== 0">
+                        <th style="width:32px;"></th>
+                        <th style="width:130px;"></th>
+                        <th style="width:50px;"></th>
+                        <th style="width:60px;"></th>
+                        <th style="width:50px;"></th>
+                      </tr>
+                    </thead>
+                    <tbody style="font-size:.8em;">
+                      <tr ng-repeat="exercise in set.exercises">
+                        <td>{{$index === 0 ? set.count : ' '}}</td>
+                        <td style="text-align:left;">{{exercise.name}}</td>
+                        <td>{{exercise.reps}} {{exercise.type}} </td>
+                        <td>{{exercise.weight}} lbs</td>
+                        <td>{{$index === 0 ? set.rest + ' Sec' : ' '}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </ion-slide>
       <ion-slide>
