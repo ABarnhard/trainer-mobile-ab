@@ -17,6 +17,43 @@
     };
   }])
 
+  .factory('Schedule', ['$http', 'origin', function($http, origin){
+    function getDay(day){
+      return $http.get(origin + '/workouts/schedule/' + convertDateToString(day));
+    }
+
+    function convertDateToString(day){
+      var s = day.getFullYear() + '-' + format(day.getMonth(), 'm') + '-' + format(day.getDate(), 'd');
+      return s;
+    }
+
+    function format(d, type){
+      if(type === 'm'){d += 1;}
+      d = d.toString();
+      if(d.length < 2){d = '0' + d;}
+      return d;
+    }
+
+    return {
+      getDay: getDay
+    };
+  }])
+
+  .factory('Workout', ['$http', 'origin', function($http, origin){
+    function getRegimes(){
+      return $http.get(origin + '/regimes');
+    }
+
+    function getPhases(regimeId){
+      return $http.get(origin + '/regimes/' + regimeId + '/phases');
+    }
+
+    return {
+      getRegimes: getRegimes,
+      getPhases: getPhases
+    };
+  }])
+
   .factory('Chats', [function(){
     var chats = [{
       id: 0,

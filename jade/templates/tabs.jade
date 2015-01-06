@@ -1,16 +1,10 @@
-html
-  body
-    //-
-      Create tabs with an icon and label, using the tabs-positive style.
-      Each tab's child <ion-nav-view> directive will have its own
-      navigation history that also transitions its views in and out.
-    ion-tabs.tabs-icon-top.tabs-color-active-positive
-      //- Dashboard Tab
-      ion-tab(title='Status', icon-off='ion-ios7-pulse', icon-on='ion-ios7-pulse-strong', href='#/tab/dash')
-        ion-nav-view(name='tab-dash')
-      //- Chats Tab
-      ion-tab(title='Chats', icon-off='ion-ios7-chatboxes-outline', icon-on='ion-ios7-chatboxes', href='#/tab/chats')
-        ion-nav-view(name='tab-chats')
-      //- Account Tab
-      ion-tab(title='Account', icon-off='ion-ios7-gear-outline', icon-on='ion-ios7-gear', href='#/tab/account')
-        ion-nav-view(name='tab-account')
+ion-tabs.tabs-icon-top.tabs-color-active-positive
+  //- Scheduled Workout Tab
+  ion-tab(title='Today\'s Workout', icon-off='ion-ios7-calendar-outline', icon-on='ion-ios7-calendar', href='#/tab/dash')
+    ion-nav-view(name='tab-dash')
+  //- All Workouts Tab
+  ion-tab(title='All Workouts', icon-off='ion-ios7-paper-outline', icon-on='ion-ios7-paper', href='#/tab/regimes')
+    ion-nav-view(name='tab-workouts')
+  //- Account Tab
+  ion-tab(title='Account', icon-off='ion-ios7-gear-outline', icon-on='ion-ios7-gear', href='#/tab/account')
+    ion-nav-view(name='tab-account')

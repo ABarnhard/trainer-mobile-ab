@@ -2,8 +2,13 @@
   'use strict';
   angular.module('trainer.controllers', [])
 
-  .controller('DashCtrl', ['$scope', function($scope){
-
+  .controller('DashCtrl', ['$scope', 'Schedule', function($scope, Schedule){
+    $scope.today = new Date();
+    $scope.init = false;
+    Schedule.getDay($scope.today).then(function(res){
+      $scope.day = res.data.day;
+      $scope.init = true;
+    });
   }])
 
   .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'User', function($rootScope, $scope, $state, User){
@@ -27,11 +32,20 @@
     };
   }])
 
-  .controller('ChatsCtrl', ['$scope', 'Chats', function($scope, Chats){
-    $scope.chats = Chats.all();
-    $scope.remove = function(chat){
-      Chats.remove(chat);
-    };
+  .controller('RegimesCtrl', ['$scope', 'Workout', function($scope, Workout){
+    $scope.regimes = [];
+    Workout.getRegimes().then(function(res){
+      $scope.regimes = res.data.regimes;
+    });
+  }])
+
+  .controller('PhasesCtrl', ['$scope', '$stateParams', 'Workout', function($scope, $stateParams, Workout){
+    $scope.phases = [];
+    $scope.regimeId = $stateParams.regimeId;
+
+    Workout.getPhases($stateParams.regimeId).then(function(res){
+      $scope.phases = res.data.phases;
+    });
   }])
 
   .controller('ChatDetailCtrl', ['$scope', '$stateParams', 'Chats', function($scope, $stateParams, Chats){

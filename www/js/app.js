@@ -14,7 +14,9 @@
       }
     });
   })
-  .config(function($stateProvider, $urlRouterProvider){
+  .config(function($stateProvider, $urlRouterProvider, $httpProvider){
+    $httpProvider.defaults.withCredentials = true;
+
     $stateProvider
     // setup an abstract state for the tabs directive
     .state('login', {
@@ -40,20 +42,30 @@
       }
     })
 
-    .state('tab.chats', {
-      url: '/chats',
+    .state('tab.regimes', {
+      url: '/regimes',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-workouts': {
+          templateUrl: 'templates/tab-regimes.html',
+          controller: 'RegimesCtrl'
         }
       }
     })
 
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+    .state('tab.phases', {
+      url: '/regimes/:regimeId',
       views: {
-        'tab-chats': {
+        'tab-workouts': {
+          templateUrl: 'templates/tab-phases.html',
+          controller: 'PhasesCtrl'
+        }
+      }
+    })
+
+    .state('tab.workouts', {
+      url: '/regimes/:regimeId/phases/:phaseId',
+      views: {
+        'tab-workouts': {
           templateUrl: 'templates/chat-detail.html',
           controller: 'ChatDetailCtrl'
         }
