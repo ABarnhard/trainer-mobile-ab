@@ -136,27 +136,34 @@
       $scope.setRep = 1;
       $scope.eIndex = 0;
       $scope.currentSet = $scope.workout.sets[setIndex];
-      if($scope.currentSet){checkExercise();}
-
-      // functions to run workout
-      function checkExercise(){
-        if($scope.eIndex < $scope.currentSet.exercises.length){
-          $scope.currentExr = $scope.currentSet.exercises[$scope.eIndex];
-          runExercise();
-        }else{
-          runNextSet();
-        }
-      }
-
-      function runExercise(){
-        console.log($scope.currentExr);
-      }
-
-      function runNextSet(){
-        console.log('runNextSet fired');
+      if($scope.currentSet){
+        $scope.checkExercise();
       }
     };
 
+    // functions to run workout
+    $scope.checkExercise = function(){
+      if($scope.eIndex < $scope.currentSet.exercises.length){
+        $scope.currentExr = $scope.currentSet.exercises[$scope.eIndex];
+        $scope.runExercise();
+      }else{
+        $scope.runNextSet();
+      }
+    };
+
+    $scope.runExercise = function(){
+      console.log('runExercise', $scope.currentExr);
+    };
+
+    $scope.runNextSet = function(){
+      console.log('runNextSet fired');
+      next();
+    };
+
+    $scope.nextExr = function(){
+      $scope.eIndex++;
+      $scope.checkExercise();
+    };
   }])
 
   .controller('AccountCtrl', ['$scope', function($scope){

@@ -5,8 +5,6 @@ ion-view(view-title='{{workout.workoutName}}')
     button.button(ng-click='prevSlide()') Prev
     button.button(ng-click='nextSlide()') Next
   ion-content
-    //- ion-slide-box(delegate-handle='wkSlider', show-pager='false', active-slide='slidestop()')
-    //- ion-slide-box(delegate-handle='wkSlider', show-pager='false', on-slide-changed='slidestop()')
     ion-slide-box(delegate-handle='wkSlider', show-pager='true', on-slide-changed='beginSet($index)')
       ion-slide
         .padded-button-row

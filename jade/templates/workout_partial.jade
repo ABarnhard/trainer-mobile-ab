@@ -5,9 +5,12 @@
   .rep-display
     .reps(ng-show='currentExr.typeId === 1')
       h4 {{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}
+      button.button.button-block.button-positive(ng-click='nextExr()') Next
     .secs(ng-show='currentExr.typeId === 2')
       h4 {{currentExr.reps}} Secs
+      button.button.button-block.button-positive(ng-click='nextExr()') Next
     .fail(ng-show='currentExr.typeId === 3')
       h4 Till Failure
+      button.button.button-block.button-positive(ng-click='nextExr()') Next
   pre(style='text-align:left;') {{currentExr | json}}
   pre(style='text-align:left;') {{currentSet | json}}

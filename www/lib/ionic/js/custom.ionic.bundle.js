@@ -7584,7 +7584,15 @@ ionic.views.Slider = ionic.views.View.inherit({
 
     this.slidesCount = this.count = function() {
       // return total number of slides
+      console.log('this.slidesCount', length);
       return length;
+    };
+
+    this._slidesCount = this._count = function() {
+      // return total number of slides
+      var len = length ? length - 1 : length;
+      // console.log('this._slidesCount', len);
+      return len;
     };
 
     this.kill = function() {
@@ -51722,6 +51730,10 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
         return slider.slidesCount();
       };
 
+      this._slidesCount = function() {
+        return slider._slidesCount();
+      };
+
       this.onPagerClick = function(index) {
         void 0;
         $scope.pagerClick({index: index});
@@ -51764,13 +51776,27 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
     restrict: 'E',
     replace: true,
     require: '^ionSlideBox',
-    template: '<div class="slider-pager"><span class="slider-pager-page" ng-repeat="slide in numSlides() track by $index" ng-class="{active: $index == currentSlide}" ng-click="pagerClick($index)"><i class="icon ion-record"></i></span></div>',
+    template: '<div class="slider-pager"><span class="slider-pager-page" ng-repeat="slide in _numSlides() track by $index" ng-class="{active: $index + 1 == currentSlide}" ng-click="pagerClick($index)"><i class="icon ion-record"></i></span></div>',
     link: function($scope, $element, $attr, slideBox) {
       var selectPage = function(index) {
         var children = $element[0].children;
         var length = children.length;
         for(var i = 0; i < length; i++) {
           if(i == index) {
+            children[i].classList.add('active');
+          } else {
+            children[i].classList.remove('active');
+          }
+        }
+      };
+
+      var _selectPage = function(index) {
+        var children = $element[0].children;
+        var length = children.length;
+        for(var i = 0; i < length; i++) {
+          var j = i + 1;
+          // console.log('_selectPage index:', index, 'j', j, 'match', index == j);
+          if(j == index) {
             children[i].classList.add('active');
           } else {
             children[i].classList.remove('active');
@@ -51786,8 +51812,13 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
         return new Array(slideBox.slidesCount());
       };
 
+      $scope._numSlides = function() {
+        return new Array(slideBox._slidesCount());
+      };
+
       $scope.$watch('currentSlide', function(v) {
-        selectPage(v);
+        // selectPage(v);
+        _selectPage(v);
       });
     }
   };

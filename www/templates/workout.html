@@ -54,12 +54,15 @@
           <div class="rep-display">
             <div ng-show="currentExr.typeId === 1" class="reps">
               <h4>{{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}</h4>
+              <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
             </div>
             <div ng-show="currentExr.typeId === 2" class="secs">
               <h4>{{currentExr.reps}} Secs</h4>
+              <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
             </div>
             <div ng-show="currentExr.typeId === 3" class="fail">
               <h4>Till Failure</h4>
+              <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
             </div>
           </div>
           <pre style="text-align:left;">{{currentExr | json}}</pre>
