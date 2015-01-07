@@ -1,0 +1,13 @@
+//- everthing is in $scope.workout from WorkoutCtrl
+.box
+  h5 Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}
+  h3 {{currentExr.name}}
+  .rep-display
+    .reps(ng-show='currentExr.typeId === 1')
+      h4 {{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}
+    .secs(ng-show='currentExr.typeId === 2')
+      h4 {{currentExr.reps}} Secs
+    .fail(ng-show='currentExr.typeId === 3')
+      h4 Till Failure
+  pre(style='text-align:left;') {{currentExr | json}}
+  pre(style='text-align:left;') {{currentSet | json}}

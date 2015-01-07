@@ -1,55 +1,69 @@
 
-<ion-view view-title="HIIT It">
-  <ion-nav-buttons side="primary"><a href="#/tab/dash" class="button">Exit</a></ion-nav-buttons>
+<ion-view view-title="{{workout.workoutName}}">
+  <ion-nav-buttons side="primary"><a href="#/tab/dash" class="button">Quit</a></ion-nav-buttons>
   <ion-nav-buttons side="secondary">
     <button ng-click="prevSlide()" class="button">Prev</button>
     <button ng-click="nextSlide()" class="button">Next</button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-slide-box delegate-handle="wkSlider" show-pager="false" active-slide="slidestop($index)">
+    <ion-slide-box delegate-handle="wkSlider" show-pager="true" on-slide-changed="beginSet($index)">
       <ion-slide>
-        <div style="background-color:red;" class="box">
-          <button ng-click="startWorkout()" class="button button-block button-positive">Start {{workout.workoutName}}</button>
-          <table class="workout-table">
-            <tbody>
-              <tr ng-repeat="set in workout.sets">
-                <td colspan="5" style="text-align:center;">
-                  <table style="display:inline-block;" class="exercise-table">
-                    <thead>
-                      <tr ng-show="$index === 0">
-                        <th style="width:32px;">Sets</th>
-                        <th style="text-align:left;width:130px;">Exercises</th>
-                        <th style="width:50px;">Reps</th>
-                        <th style="width:60px;">Weight</th>
-                        <th style="width:50px;">Rest</th>
-                      </tr>
-                      <tr ng-show="$index !== 0">
-                        <th style="width:32px;"></th>
-                        <th style="width:130px;"></th>
-                        <th style="width:50px;"></th>
-                        <th style="width:60px;"></th>
-                        <th style="width:50px;"></th>
-                      </tr>
-                    </thead>
-                    <tbody style="font-size:.8em;">
-                      <tr ng-repeat="exercise in set.exercises">
-                        <td>{{$index === 0 ? set.count : ' '}}</td>
-                        <td style="text-align:left;">{{exercise.name}}</td>
-                        <td>{{exercise.reps}} {{exercise.type}} </td>
-                        <td>{{exercise.weight}} lbs</td>
-                        <td>{{$index === 0 ? set.rest + ' Sec' : ' '}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="padded-button-row">
+          <button ng-click="startWorkout()" class="button button-block button-stable">Start</button>
         </div>
+        <table class="workout-table">
+          <tbody>
+            <tr ng-repeat="set in workout.sets">
+              <td colspan="5" style="text-align:center;">
+                <table style="display:inline-block;" class="exercise-table">
+                  <thead>
+                    <tr ng-show="$index === 0">
+                      <th style="width:32px;">Sets</th>
+                      <th style="text-align:left;width:130px;">Exercises</th>
+                      <th style="width:50px;">Reps</th>
+                      <th style="width:60px;">Weight</th>
+                      <th style="width:50px;">Rest</th>
+                    </tr>
+                    <tr ng-show="$index !== 0">
+                      <th style="width:32px;"></th>
+                      <th style="width:130px;"></th>
+                      <th style="width:50px;"></th>
+                      <th style="width:60px;"></th>
+                      <th style="width:50px;"></th>
+                    </tr>
+                  </thead>
+                  <tbody style="font-size:.7em;">
+                    <tr ng-repeat="exercise in set.exercises">
+                      <td>{{$index === 0 ? set.count : ' '}}</td>
+                      <td style="text-align:left;">{{exercise.name}}</td>
+                      <td>{{formatReps(exercise.reps, exercise.type)}}</td>
+                      <td>{{formatWeight(exercise.weight, false)}}</td>
+                      <td>{{$index === 0 ? formatRest(set.rest) : ' '}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </ion-slide>
-      <ion-slide>
-        <div style="background-color:blue;" class="box">
-          <h1>Slide 2</h1>
+      <ion-slide ng-repeat="set in workout.sets">
+        <div class="box">
+          <h5>Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}</h5>
+          <h3>{{currentExr.name}}</h3>
+          <div class="rep-display">
+            <div ng-show="currentExr.typeId === 1" class="reps">
+              <h4>{{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}</h4>
+            </div>
+            <div ng-show="currentExr.typeId === 2" class="secs">
+              <h4>{{currentExr.reps}} Secs</h4>
+            </div>
+            <div ng-show="currentExr.typeId === 3" class="fail">
+              <h4>Till Failure</h4>
+            </div>
+          </div>
+          <pre style="text-align:left;">{{currentExr | json}}</pre>
+          <pre style="text-align:left;">{{currentSet | json}}</pre>
         </div>
       </ion-slide>
     </ion-slide-box>

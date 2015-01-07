@@ -70,28 +70,91 @@
   }])
 
   .controller('WorkoutCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', 'Workout', function($scope, $stateParams, $ionicSlideBoxDelegate, Workout){
+    // init scope vars
+    $scope.workout = {};
+
+    // set slide-box so it can only be controlled via script/buttons
+    angular.element(document).ready(function(){$ionicSlideBoxDelegate.enableSlide(false);});
+
+    // look up workout based on state params passed in the query string
     if($stateParams.dayId){
-      console.log('dayId:', $stateParams.dayId);
+      // console.log('dayId:', $stateParams.dayId);
       Workout.findByDayId($stateParams.dayId).then(function(res){
         $scope.workout = res.data.workout;
+        $ionicSlideBoxDelegate.update();
       });
     }else if($stateParams.wkId){
-      console.log('wkId:', $stateParams.wkId);
+      // console.log('wkId:', $stateParams.wkId);
       Workout.findById($stateParams.wkId).then(function(res){
-        $scope.workout = res.data.workout
+        $scope.workout = res.data.workout;
+        $ionicSlideBoxDelegate.update();
       });
     }
 
-    $scope.nextSlide = function(){
+    // functions to control slider
+    function next(){
       $ionicSlideBoxDelegate.next();
-    };
-
-    $scope.prevSlide = function(){
+    }
+    function prev(){
       $ionicSlideBoxDelegate.previous();
+    }
+    $scope.nextSlide = next;
+    $scope.prevSlide = prev;
+
+    // functions to format exercise stats for display
+    $scope.formatWeight = function(lbs, verbose){
+      if(lbs === 0){
+        return verbose ? 'Body Weight' : 'BW'; // 0lbs is a body weight (bw) exercise
+      }else{
+        return lbs + ' lbs';
+      }
+    };
+    $scope.formatReps = function(reps, type){
+      // console.log(reps, type);
+      if(reps === 0){
+        return 'Till Fail';
+      }else{
+        return reps + ' ' + type[0].toUpperCase() + type.substring(1);
+      }
+    };
+    $scope.formatRest = function(rest){
+      if(rest === 0){
+        return 'None';
+      }else{
+        return rest + ' Sec';
+      }
     };
 
-    $scope.slidestop = function(index){
-      $ionicSlideBoxDelegate.enableSlide(false);
+    $scope.startWorkout = function(){
+      next(); // changes slide from initial pos, which fires beginSet below
+    };
+
+    $scope.beginSet = function(slideIndex){
+      // there is 1 more slide than there are sets
+      var setIndex = slideIndex - 1;
+      // init scope vars to run workouts
+      $scope.setRep = 1;
+      $scope.eIndex = 0;
+      $scope.currentSet = $scope.workout.sets[setIndex];
+      if($scope.currentSet){checkExercise();}
+
+      // functions to run workout
+      function checkExercise(){
+        if($scope.eIndex < $scope.currentSet.exercises.length){
+          $scope.currentExr = $scope.currentSet.exercises[$scope.eIndex];
+          runExercise();
+        }else{
+          runNextSet();
+        }
+      }
+
+      function runExercise(){
+        console.log($scope.currentExr);
+      }
+
+      function runNextSet(){
+        console.log('runNextSet fired');
+      }
     };
 
   }])
