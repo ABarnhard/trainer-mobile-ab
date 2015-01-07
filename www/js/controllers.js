@@ -145,7 +145,7 @@
     $scope.checkExercise = function(){
       function nextExercise(){
         $scope.currentExr = $scope.currentSet.exercises[$scope.eIndex];
-        $scope.runExercise();        
+        $scope.runExercise();
       }
       if($scope.eIndex < $scope.currentSet.exercises.length){
         nextExercise();
