@@ -12,7 +12,7 @@
     .fail(ng-show='currentExr.typeId === 3')
       h4 Till Failure
       button.button.button-block.button-positive(ng-click='nextExr()') Next
-  ul.list
-    li.item(style='border: none;', ng-repeat='exr in currentSet.exercises') {{exr.name}}
+  ul.list(ng-show='currentSet.exercises.length > 1')
+    li.item(style='border: none;', ng-repeat='exr in currentSet.exercises', ng-class='{"active-exercise": exr.name === currentExr.name}') {{exr.name}}
   //- pre(style='text-align:left;') {{currentExr | json}}
   //- pre(style='text-align:left;') {{currentSet | json}}

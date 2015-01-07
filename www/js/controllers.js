@@ -69,7 +69,7 @@
     };
   }])
 
-  .controller('WorkoutCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', 'Workout', function($scope, $stateParams, $ionicSlideBoxDelegate, Workout){
+  .controller('WorkoutCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', 'Workout', function($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Workout){
     // init scope vars
     $scope.workout = {};
 
@@ -158,7 +158,7 @@
           nextExercise();
         }else{
           // TODO This is where the rest timer goes between sets
-          // TODO Need if/else logic to quit out at end of last set 
+          // TODO Need if/else logic to quit out at end of last set
           console.log('go to next set');
           next();
         }

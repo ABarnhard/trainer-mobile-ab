@@ -16,7 +16,7 @@
       <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
     </div>
   </div>
-  <ul class="list">
-    <li style="border: none;" ng-repeat="exr in currentSet.exercises" class="item">{{exr.name}}</li>
+  <ul ng-show="currentSet.exercises.length &gt; 1" class="list">
+    <li style="border: none;" ng-repeat="exr in currentSet.exercises" ng-class="{&quot;active-exercise&quot;: exr.name === currentExr.name}" class="item">{{exr.name}}</li>
   </ul>
 </div>

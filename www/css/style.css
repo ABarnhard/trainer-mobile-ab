@@ -25,10 +25,20 @@
 .workout-table {
   padding: 0 1em;
 }
+
 .exercise-table th, .exercise-table td {
   padding: .1em;
 }
 
 .padded-button-row {
   padding: 0.025em 1em;
+}
+
+.active-exercise {
+  /* background-color: #F5F5F5; */
+  background-color: #eee9e9;
+}
+
+.box > h3 {
+  height: 60px;
 }
