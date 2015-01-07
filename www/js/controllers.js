@@ -147,27 +147,28 @@
         $scope.currentExr = $scope.currentSet.exercises[$scope.eIndex];
         $scope.runExercise();
       }
+
       if($scope.eIndex < $scope.currentSet.exercises.length){
         nextExercise();
       }else{
         if($scope.setRep < $scope.currentSet.count){
           // TODO This is where the rest timer goes between sets
-          $scope.setRep++;
-          $scope.eIndex = 0;
+          $scope.setRep++; // increment current rep
+          $scope.eIndex = 0; // reset exercise index
           nextExercise();
         }else{
-          $scope.runNextSet();
+          // TODO This is where the rest timer goes between sets
+          // TODO Need if/else logic to quit out at end of last set 
+          console.log('go to next set');
+          next();
         }
       }
     };
 
     $scope.runExercise = function(){
-      console.log('runExercise', $scope.currentExr);
-    };
-
-    $scope.runNextSet = function(){
-      console.log('runNextSet fired');
-      next();
+      // This is where the logic goes to either start the timer
+      // or wait for user to press next
+      console.log('run exercise');
     };
 
     $scope.nextExr = function(){

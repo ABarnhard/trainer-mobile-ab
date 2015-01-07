@@ -16,6 +16,7 @@
       <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
     </div>
   </div>
-  <pre style="text-align:left;">{{currentExr | json}}</pre>
-  <pre style="text-align:left;">{{currentSet | json}}</pre>
+  <ul class="list">
+    <li style="border: none;" ng-repeat="exr in currentSet.exercises" class="item">{{exr.name}}</li>
+  </ul>
 </div>

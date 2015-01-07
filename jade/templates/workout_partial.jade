@@ -12,5 +12,7 @@
     .fail(ng-show='currentExr.typeId === 3')
       h4 Till Failure
       button.button.button-block.button-positive(ng-click='nextExr()') Next
-  pre(style='text-align:left;') {{currentExr | json}}
-  pre(style='text-align:left;') {{currentSet | json}}
+  ul.list
+    li.item(style='border: none;', ng-repeat='exr in currentSet.exercises') {{exr.name}}
+  //- pre(style='text-align:left;') {{currentExr | json}}
+  //- pre(style='text-align:left;') {{currentSet | json}}
