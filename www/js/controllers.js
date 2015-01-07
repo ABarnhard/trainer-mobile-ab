@@ -143,11 +143,21 @@
 
     // functions to run workout
     $scope.checkExercise = function(){
-      if($scope.eIndex < $scope.currentSet.exercises.length){
+      function nextExercise(){
         $scope.currentExr = $scope.currentSet.exercises[$scope.eIndex];
-        $scope.runExercise();
+        $scope.runExercise();        
+      }
+      if($scope.eIndex < $scope.currentSet.exercises.length){
+        nextExercise();
       }else{
-        $scope.runNextSet();
+        if($scope.setRep < $scope.currentSet.count){
+          // TODO This is where the rest timer goes between sets
+          $scope.setRep++;
+          $scope.eIndex = 0;
+          nextExercise();
+        }else{
+          $scope.runNextSet();
+        }
       }
     };
 
