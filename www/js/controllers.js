@@ -100,11 +100,15 @@
     function next(){
       $ionicSlideBoxDelegate.next();
     }
+
+    /*
+    // for testing
     function prev(){
       $ionicSlideBoxDelegate.previous();
     }
     $scope.nextSlide = next;
     $scope.prevSlide = prev;
+    */
 
     // functions to format exercise stats for display
     $scope.formatWeight = function(lbs, verbose){

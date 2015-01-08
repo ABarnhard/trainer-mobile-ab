@@ -1,21 +1,21 @@
 //- everthing is in $scope.workout from WorkoutCtrl
-.box
+.wk-display(ng-class='{red: stopSet, green: doSet}')
   h5 Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}
-  h3(ng-class='{red: stopSet, green: doSet}') {{currentExr.name}}
-  .rep-display
-    .reps(ng-show='currentExr.typeId === 1')
-      h4 {{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}
-      button.button.button-block.button-positive(ng-click='nextExr()') Next
-    .secs(ng-show='currentExr.typeId === 2')
-      h4
-        span(ng-if='!timerRunning') {{currentExr.reps}} seconds
-        timer(ng-if='timerRunning', countdown='currentExr.reps', interval='1000', finish-callback='timerFinished()') {{seconds}} second{{secondsS}}
-      button.button.button-block.button-positive(ng-show='!timerDone', ng-click='startTimer()', ng-disabled='timerRunning') Start
-      button.button.button-block.button-positive(ng-show='timerDone', ng-click='nextExr()') Next
-    .fail(ng-show='currentExr.typeId === 3')
-      h4 Till Failure
-      button.button.button-block.button-positive(ng-click='nextExr()') Next
-  ul.list(ng-show='currentSet.exercises.length > 1')
-    li.item(style='border: none;', ng-repeat='exr in currentSet.exercises', ng-class='{"active-exercise": exr.name === currentExr.name}') {{exr.name}}
-  //- pre(style='text-align:left;') {{currentExr | json}}
-  //- pre(style='text-align:left;') {{currentSet | json}}
+  h3 {{currentExr.name}}
+.rep-display(ng-class='{red: stopSet, green: doSet}')
+  .reps(ng-show='currentExr.typeId === 1')
+    h4 {{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}
+    button.button.button-block.button-positive(ng-click='nextExr()') Next
+  .secs(ng-show='currentExr.typeId === 2')
+    h4
+      span(ng-if='!timerRunning') {{currentExr.reps}} seconds
+      timer(ng-if='timerRunning', countdown='currentExr.reps', interval='1000', finish-callback='timerFinished()') {{seconds}} second{{secondsS}}
+    button.button.button-block.button-positive(ng-show='!timerDone', ng-click='startTimer()', ng-disabled='timerRunning') Start
+    button.button.button-block.button-positive(ng-show='timerDone', ng-click='nextExr()') Next
+  .fail(ng-show='currentExr.typeId === 3')
+    h4 Till Failure
+    button.button.button-block.button-positive(ng-click='nextExr()') Next
+ul.list(ng-show='currentSet.exercises.length > 1')
+  li.item(style='border: none;', ng-repeat='exr in currentSet.exercises', ng-class='{"active-exercise": exr.name === currentExr.name}') {{exr.name}}
+//- pre(style='text-align:left;') {{currentExr | json}}
+//- pre(style='text-align:left;') {{currentSet | json}}

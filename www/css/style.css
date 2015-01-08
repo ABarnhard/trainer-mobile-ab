@@ -39,14 +39,29 @@
   background-color: #eee9e9;
 }
 
-.box > h3 {
+.wk-display > h3 {
   height: 60px;
 }
 
+.wk-display > h3, .wk-display > h5 {
+  margin: 0;
+  padding: 5px 0;
+}
+
+.rep-display h4 {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.secs button {
+  margin: 0;
+}
+
 .red {
-  background-color: red;
+  background-color: #FF4136;
 }
 
 .green {
-  background-color: green;
+  background-color: #2ECC40;
 }

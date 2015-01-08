@@ -1,9 +1,10 @@
 ion-view(view-title='{{workout.workoutName}}')
   ion-nav-buttons(side='primary')
     a.button(href='#/tab/dash') Quit
-  ion-nav-buttons(side='secondary')
-    button.button(ng-click='prevSlide()') Prev
-    button.button(ng-click='nextSlide()') Next
+  //- buttons for testing
+    ion-nav-buttons(side='secondary')
+      button.button(ng-click='prevSlide()') Prev
+      button.button(ng-click='nextSlide()') Next
   ion-content
     ion-slide-box(delegate-handle='wkSlider', show-pager='true', on-slide-changed='beginSet($index)')
       ion-slide
