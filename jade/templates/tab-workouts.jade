@@ -1,5 +1,5 @@
 ion-view(view-title='Workouts')
   ion-content
     ion-list
-      ion-item.item(ng-repeat='w in workouts', type='item-text-wrap', ng-click='showConfirm(w)')
+      ion-item(ng-repeat='w in workouts', type='item-text-wrap', ng-click='showConfirm(w)')
         | {{w.workoutName}}

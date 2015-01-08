@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <ion-view view-title="Account">
-      <ion-content>
-        <ion-list>
-          <ion-item class="item-toggle">Enable Friends
-            <label class="toggle">
-              <input type="checkbox" ng-model="settings.enableFriends">
-              <div class="track">
-                <div class="handle"></div>
-              </div>
-            </label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-view>
-  </body>
-</html>
+
+<ion-view view-title="Account">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar"><img ng-src="{{rootUser.avatar}}">
+        <h2>{{rootUser.email}}</h2>
+        <button style="height:1em;" ng-click="logOut()" class="button button-block">Log Out</button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

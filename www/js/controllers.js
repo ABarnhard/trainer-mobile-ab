@@ -23,6 +23,8 @@
       $scope.disabled = !$scope.disabled;
       User.login(user).then(function(res){
         $rootScope.rootUser = res.data;
+        $scope.disabled = false;
+        $scope.user = {};
         $state.go('tab.dash');
       }, function(res){
         $scope.disabled = !$scope.disabled;
@@ -62,7 +64,6 @@
       });
       confirmPopup.then(function(res){
         if(res){
-          console.log('You are sure');
           $state.go('workout.do', {wkId: workout.workoutId});
         }
       });
@@ -240,9 +241,13 @@
     }
   }])
 
-  .controller('AccountCtrl', ['$scope', function($scope){
-    $scope.settings = {
-      enableFriends: true
+  .controller('AccountCtrl', ['$scope', '$state', 'User', function($scope, $state, User){
+    $scope.logOut = function(){
+      User.logout().then(function(res){
+        $state.go('login');
+      }, function(res){
+        console.log('ERROR Logging Out', res);
+      });
     };
   }]);
 })();
