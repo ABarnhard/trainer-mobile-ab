@@ -63,15 +63,19 @@
       confirmPopup.then(function(res){
         if(res){
           console.log('You are sure');
-          $state.go('workout', {wkId: workout.workoutId});
+          $state.go('workout.do', {wkId: workout.workoutId});
         }
       });
     };
   }])
 
-  .controller('WorkoutCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', 'Workout', function($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Workout){
+  .controller('WorkoutCtrl', ['$scope', '$state', '$stateParams', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', 'Workout', function($scope, $state, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Workout){
     // init scope vars
     $scope.workout = {};
+    $scope.timerRunning = false;
+    $scope.timerDone = false;
+    $scope.stopSet = false;
+    $scope.doSet = false;
 
     // set slide-box so it can only be controlled via script/buttons
     angular.element(document).ready(function(){$ionicSlideBoxDelegate.enableSlide(false);});
@@ -129,52 +133,102 @@
       next(); // changes slide from initial pos, which fires beginSet below
     };
 
+    $scope.endWorkout = function(){
+      console.log('workout is over');
+      $state.go('workout.finished', {wkName: $scope.workout.workoutName, dayId:$stateParams.dayId});
+    };
+
     $scope.beginSet = function(slideIndex){
       // there is 1 more slide than there are sets
-      var setIndex = slideIndex - 1;
+      $scope.setIndex = slideIndex - 1;
       // init scope vars to run workouts
       $scope.setRep = 1;
       $scope.eIndex = 0;
-      $scope.currentSet = $scope.workout.sets[setIndex];
+      $scope.currentSet = $scope.workout.sets[$scope.setIndex];
       if($scope.currentSet){
         $scope.checkExercise();
       }
     };
 
+    $scope.nextExercise = function(){
+      $scope.currentExr = $scope.currentSet.exercises[$scope.eIndex];
+      $scope.runExercise();
+    };
+
     // functions to run workout
     $scope.checkExercise = function(){
-      function nextExercise(){
-        $scope.currentExr = $scope.currentSet.exercises[$scope.eIndex];
-        $scope.runExercise();
-      }
-
       if($scope.eIndex < $scope.currentSet.exercises.length){
-        nextExercise();
+        $scope.nextExercise();
       }else{
-        if($scope.setRep < $scope.currentSet.count){
-          // TODO This is where the rest timer goes between sets
-          $scope.setRep++; // increment current rep
-          $scope.eIndex = 0; // reset exercise index
-          nextExercise();
-        }else{
-          // TODO This is where the rest timer goes between sets
-          // TODO Need if/else logic to quit out at end of last set
-          console.log('go to next set');
-          next();
-        }
+        showRestModal();
       }
     };
 
     $scope.runExercise = function(){
-      // This is where the logic goes to either start the timer
-      // or wait for user to press next
-      console.log('run exercise');
+      // TODO This is where the logic to handle sets and timed excercises better will go
+      // console.log('run exercise');
     };
 
     $scope.nextExr = function(){
       $scope.eIndex++;
+      $scope.timerRunning = $scope.timerDone = false;
+      $scope.doSet = $scope.stopSet = false;
       $scope.checkExercise();
     };
+
+    $scope.startTimer = function(){
+      $scope.$broadcast('timer-start');
+      $scope.timerRunning = true;
+      $scope.doSet = true;
+    };
+
+    $scope.timerFinished = function(){
+      $scope.timerDone = true;
+      $scope.doSet = false;
+      $scope.stopSet = true;
+      $scope.$digest();
+    };
+
+    // function to control rest modal between sets
+    function showRestModal(){
+      // if there is no rest or this was the last set, don't show modal
+      if($scope.currentSet.rest === 0){return nextExcOrSet();}
+      if($scope.setRep >= $scope.currentSet.count && $scope.setIndex === $scope.workout.sets.length - 1){return $scope.endWorkout();}
+
+      // define handle to timeout, timeoutId is actually a promise object
+      var timeoutId = $timeout(function(){
+            restModal.close();
+            nextExcOrSet();
+          }, parseInt(($scope.currentSet.rest * 1000), 10)),
+          // create modal
+          restModal = $ionicPopup.show({
+            template: '<div style="text-align:center;font-size:2em;font-weight:bold;"><timer countdown="currentSet.rest" interval="1000">{{minutes}} min{{minutesS}} {{seconds}} sec{{secondsS}}</timer></div>',
+            title: 'Time To Rest',
+            subTitle: 'Hit Cancel if you\'r ready to go',
+            scope: $scope,
+            buttons: [{text: 'Cancel'}]
+          });
+
+      restModal.then(function(res){
+        $timeout.cancel(timeoutId);
+        nextExcOrSet();
+      });
+    }
+
+    // move on to next set or end workout
+    function nextExcOrSet(){
+      if($scope.setRep < $scope.currentSet.count){
+        $scope.setRep++; // increment current rep
+        $scope.eIndex = 0; // reset exercise index
+        $scope.nextExercise();
+      }else{
+        next();
+      }
+    }
+  }])
+
+  .controller('wkFinishedCtrl', ['$scope', '$stateParams', function($scope, $stateParams){
+    $scope.wkName = $stateParams.wkName;
   }])
 
   .controller('AccountCtrl', ['$scope', function($scope){

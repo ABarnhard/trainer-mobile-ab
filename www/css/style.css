@@ -42,3 +42,11 @@
 .box > h3 {
   height: 60px;
 }
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}

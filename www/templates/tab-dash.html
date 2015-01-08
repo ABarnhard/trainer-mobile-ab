@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <ion-view view-title="HIIT It">
-      <ion-content class="padding">
-        <div ng-show="init" class="list card">
-          <div class="item item-divider">Today</div>
-          <div class="item">{{today | date:'fullDate'}}</div>
-          <div ng-hide="day" class="item item-divider">No Workout Scheduled</div>
-          <div ng-show="day" class="item item-divider">Workout: {{day.title}}</div>
-          <div ng-show="day" class="item item-body"><a href="#/workout?dayId={{day.id}}" class="button button-block button-positive">START</a></div>
-        </div>
-      </ion-content>
-    </ion-view>
-  </body>
-</html>
+
+<ion-view view-title="HIIT It">
+  <ion-content class="padding">
+    <div ng-show="init" class="list card">
+      <div class="item item-divider">Today</div>
+      <div class="item">{{today | date:'fullDate'}}</div>
+      <div ng-hide="day" class="item item-divider">No Workout Scheduled</div>
+      <div ng-show="day" class="item item-divider">Workout: {{day.title}}</div>
+      <div ng-show="day" class="item item-body"><a href="#/workout?dayId={{day.id}}" class="button button-block button-positive">START</a></div>
+    </div>
+  </ion-content>
+</ion-view>

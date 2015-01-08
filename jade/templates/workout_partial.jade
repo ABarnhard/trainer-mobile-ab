@@ -1,14 +1,17 @@
 //- everthing is in $scope.workout from WorkoutCtrl
 .box
   h5 Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}
-  h3 {{currentExr.name}}
+  h3(ng-class='{red: stopSet, green: doSet}') {{currentExr.name}}
   .rep-display
     .reps(ng-show='currentExr.typeId === 1')
       h4 {{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}
       button.button.button-block.button-positive(ng-click='nextExr()') Next
     .secs(ng-show='currentExr.typeId === 2')
-      h4 {{currentExr.reps}} Secs
-      button.button.button-block.button-positive(ng-click='nextExr()') Next
+      h4
+        span(ng-if='!timerRunning') {{currentExr.reps}} seconds
+        timer(ng-if='timerRunning', countdown='currentExr.reps', interval='1000', finish-callback='timerFinished()') {{seconds}} second{{secondsS}}
+      button.button.button-block.button-positive(ng-show='!timerDone', ng-click='startTimer()', ng-disabled='timerRunning') Start
+      button.button.button-block.button-positive(ng-show='timerDone', ng-click='nextExr()') Next
     .fail(ng-show='currentExr.typeId === 3')
       h4 Till Failure
       button.button.button-block.button-positive(ng-click='nextExr()') Next

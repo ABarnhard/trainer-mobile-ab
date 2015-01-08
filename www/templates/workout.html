@@ -50,15 +50,18 @@
       <ion-slide ng-repeat="set in workout.sets">
         <div class="box">
           <h5>Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}</h5>
-          <h3>{{currentExr.name}}</h3>
+          <h3 ng-class="{red: stopSet, green: doSet}">{{currentExr.name}}</h3>
           <div class="rep-display">
             <div ng-show="currentExr.typeId === 1" class="reps">
               <h4>{{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}</h4>
               <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
             </div>
             <div ng-show="currentExr.typeId === 2" class="secs">
-              <h4>{{currentExr.reps}} Secs</h4>
-              <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
+              <h4><span ng-if="!timerRunning">{{currentExr.reps}} seconds</span>
+                <timer ng-if="timerRunning" countdown="currentExr.reps" interval="1000" finish-callback="timerFinished()">{{seconds}} second{{secondsS}}</timer>
+              </h4>
+              <button ng-show="!timerDone" ng-click="startTimer()" ng-disabled="timerRunning" class="button button-block button-positive">Start</button>
+              <button ng-show="timerDone" ng-click="nextExr()" class="button button-block button-positive">Next</button>
             </div>
             <div ng-show="currentExr.typeId === 3" class="fail">
               <h4>Till Failure</h4>

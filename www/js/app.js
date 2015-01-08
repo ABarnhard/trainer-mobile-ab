@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  angular.module('trainer', ['ionic', 'trainer.controllers', 'trainer.services', 'trainer.values'])
+  angular.module('trainer', ['ionic', 'timer', 'trainer.controllers', 'trainer.services', 'trainer.values'])
   .run(function($ionicPlatform){
     $ionicPlatform.ready(function(){
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -25,9 +25,21 @@
     })
 
     .state('workout', {
-      url: '/workout?wkId&dayId',
+      url: '/workout',
+      abstract: true,
+      templateUrl: 'templates/workouts.html'
+    })
+
+    .state('workout.do', {
+      url: '?wkId&dayId',
       templateUrl: 'templates/workout.html',
       controller: 'WorkoutCtrl'
+    })
+
+    .state('workout.finished', {
+      url: '/finished?wkName&dayId',
+      templateUrl: 'templates/workout_finished.html',
+      controller: 'wkFinishedCtrl'
     })
 
     .state('tab', {
