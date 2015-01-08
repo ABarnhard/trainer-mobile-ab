@@ -245,10 +245,10 @@
     }
   }])
 
-  .controller('AccountCtrl', ['$scope', '$state', 'User', function($scope, $state, User){
+  .controller('AccountCtrl', ['$scope', '$state', '$location', 'User', function($scope, $state, $location, User){
     $scope.logOut = function(){
       User.logout().then(function(res){
-        $state.go('login');
+        $location.path('#/login');
       }, function(res){
         console.log('ERROR Logging Out', res);
       });
