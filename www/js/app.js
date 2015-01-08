@@ -25,6 +25,7 @@
     })
 
     .state('workout', {
+      cache: false,
       url: '/workout',
       abstract: true,
       templateUrl: 'templates/workouts.html'
