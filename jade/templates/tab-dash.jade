@@ -6,5 +6,6 @@ ion-view(view-title='HIIT It')
       .item.item-divider(ng-hide='day') No Workout Scheduled
       .item.item-divider(ng-show='day') Workout: {{day.title}}
       .item.item-body(ng-show='day')
-        a.button.button-block.button-positive(href='#/workout?dayId={{day.id}}') START
+        h2(ng-show='day.isComplete') Scheduled Workout Complete
+        a.button.button-block.button-positive(ng-hide='day.isComplete', href='#/workout?dayId={{day.id}}') START
 

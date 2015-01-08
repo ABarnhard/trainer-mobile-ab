@@ -134,7 +134,7 @@
     };
 
     $scope.endWorkout = function(){
-      console.log('workout is over');
+      // console.log('workout is over');
       $state.go('workout.finished', {wkName: $scope.workout.workoutName, dayId:$stateParams.dayId});
     };
 
@@ -227,8 +227,17 @@
     }
   }])
 
-  .controller('wkFinishedCtrl', ['$scope', '$stateParams', function($scope, $stateParams){
+  .controller('wkFinishedCtrl', ['$scope', '$stateParams', 'Schedule', function($scope, $stateParams, Schedule){
     $scope.wkName = $stateParams.wkName;
+
+    if($stateParams.dayId){ // if we just completed a day, mark it complete in db
+      Schedule.markDayCompleted($stateParams.dayId).then(function(res){
+        console.log('day completed');
+        angular.noop();
+      }, function(res){
+        console.log('ERROR COMPLETING DAY:', res);
+      });
+    }
   }])
 
   .controller('AccountCtrl', ['$scope', function($scope){

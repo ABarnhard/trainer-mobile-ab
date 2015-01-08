@@ -6,7 +6,9 @@
       <div class="item">{{today | date:'fullDate'}}</div>
       <div ng-hide="day" class="item item-divider">No Workout Scheduled</div>
       <div ng-show="day" class="item item-divider">Workout: {{day.title}}</div>
-      <div ng-show="day" class="item item-body"><a href="#/workout?dayId={{day.id}}" class="button button-block button-positive">START</a></div>
+      <div ng-show="day" class="item item-body">
+        <h2 ng-show="day.isComplete">Scheduled Workout Complete</h2><a ng-hide="day.isComplete" href="#/workout?dayId={{day.id}}" class="button button-block button-positive">START</a>
+      </div>
     </div>
   </ion-content>
 </ion-view>

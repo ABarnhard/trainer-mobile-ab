@@ -22,6 +22,10 @@
       return $http.get(origin + '/workouts/schedule/' + convertDateToString(day));
     }
 
+    function markDayCompleted(dayId){
+      return $http.post('/schedule/day/complete', {dayId:dayId});
+    }
+
     function convertDateToString(day){
       var s = day.getFullYear() + '-' + format(day.getMonth(), 'm') + '-' + format(day.getDate(), 'd');
       return s;
@@ -35,7 +39,8 @@
     }
 
     return {
-      getDay: getDay
+      getDay: getDay,
+      markDayCompleted: markDayCompleted
     };
   }])
 
