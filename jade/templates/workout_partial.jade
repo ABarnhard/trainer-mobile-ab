@@ -9,7 +9,7 @@
   .secs(ng-show='currentExr.typeId === 2')
     h4
       span(ng-if='!timerRunning') {{currentExr.reps}} seconds
-      timer(ng-if='timerRunning', countdown='currentExr.reps', interval='1000', finish-callback='timerFinished()') {{seconds}} second{{secondsS}}
+      timer(ng-if='timerRunning', countdown='currentExr.reps', interval='1000', finish-callback='timerFinished()') {{mminutes}}:{{sseconds}}
     button.button.button-block.button-positive(ng-show='!timerDone', ng-click='startTimer()', ng-disabled='timerRunning') Start
     button.button.button-block.button-positive(ng-show='timerDone', ng-click='nextExr()') Next
   .fail(ng-show='currentExr.typeId === 3')

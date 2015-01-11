@@ -5,10 +5,12 @@
   </ion-nav-buttons>
   <ion-nav-buttons side="secondary">
     <button ng-show="setIndex === -1" ng-click="startWorkout()" class="button">Start</button>
+    <button ng-click="prevSlide(&quot;wkSlider&quot;)" class="button">Prev</button>
+    <button ng-click="nextSlide(&quot;wkSlider&quot;)" class="button">Next</button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-slide-box delegate-handle="wkSlider" show-pager="true" on-slide-changed="beginSet($index)">
-      <ion-slide>
+    <ion-slide-box delegate-handle="wkSlider" show-pager="true" on-slide-changed="beginSet($index)" class="test-main-class">
+      <ion-slide class="test-class">
         <table class="workout-table">
           <tbody>
             <tr ng-repeat="set in workout.sets">
@@ -57,7 +59,7 @@
           </div>
           <div ng-show="currentExr.typeId === 2" class="secs">
             <h4><span ng-if="!timerRunning">{{currentExr.reps}} seconds</span>
-              <timer ng-if="timerRunning" countdown="currentExr.reps" interval="1000" finish-callback="timerFinished()">{{seconds}} second{{secondsS}}</timer>
+              <timer ng-if="timerRunning" countdown="currentExr.reps" interval="1000" finish-callback="timerFinished()">{{mminutes}}:{{sseconds}}</timer>
             </h4>
             <button ng-show="!timerDone" ng-click="startTimer()" ng-disabled="timerRunning" class="button button-block button-positive">Start</button>
             <button ng-show="timerDone" ng-click="nextExr()" class="button button-block button-positive">Next</button>

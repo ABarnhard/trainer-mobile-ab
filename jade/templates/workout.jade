@@ -3,13 +3,12 @@ ion-view(view-title='{{workout.workoutName}}')
     button.button(ng-click='quit()') Quit
   ion-nav-buttons(side='secondary')
     button.button(ng-show='setIndex === -1', ng-click='startWorkout()') Start
-  //- buttons for testing
-    ion-nav-buttons(side='secondary')
-      button.button(ng-click='prevSlide('wkSlider')') Prev
-      button.button(ng-click='nextSlide('wkSlider')') Next
+    //- buttons for testing
+    button.button(ng-click='prevSlide("wkSlider")') Prev
+    button.button(ng-click='nextSlide("wkSlider")') Next
   ion-content
-    ion-slide-box(delegate-handle='wkSlider', show-pager='true', on-slide-changed='beginSet($index)')
-      ion-slide
+    ion-slide-box.test-main-class(delegate-handle='wkSlider', show-pager='true', on-slide-changed='beginSet($index)')
+      ion-slide.test-class
         table.workout-table
           tbody
             tr(ng-repeat='set in workout.sets')

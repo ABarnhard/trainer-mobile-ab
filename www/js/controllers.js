@@ -71,6 +71,35 @@
   }])
 
   .controller('WorkoutCtrl', ['$scope', '$state', '$stateParams', '$location', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', 'Workout', function($scope, $state, $stateParams, $location, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Workout){
+    /*
+    function startTimer(sectionId) {
+      document.getElementById(sectionId).getElementsByTagName('timer')[0].start();
+    }
+
+    function stopTimer(sectionId) {
+      document.getElementById(sectionId).getElementsByTagName('timer')[0].stop();
+    }
+
+    function addCDSeconds(sectionId, extraTime) {
+      document.getElementById(sectionId).getElementsByTagName('timer')[0].addCDSeconds(extraTime);
+    }
+
+    function stopResumeTimer(sectionId, btn) {
+      if (btn.innerHTML === 'Start') {
+        document.getElementById(sectionId).getElementsByTagName('timer')[0].start();
+        btn.innerHTML = 'Stop';
+      }
+      else if (btn.innerHTML === 'Stop') {
+        document.getElementById(sectionId).getElementsByTagName('timer')[0].stop();
+        btn.innerHTML = 'Resume';
+      }
+      else {
+        document.getElementById(sectionId).getElementsByTagName('timer')[0].resume();
+        btn.innerHTML = 'Stop';
+      }
+    }
+    */
+
     // init scope vars
     $scope.workout = {};
     $scope.setIndex = -1;
@@ -120,17 +149,14 @@
     // functions to control slider
     function next(name){
       slideBox(name).next();
-      $ionicSlideBoxDelegate.update();
     }
 
-    /*
     // for testing
     function prev(name){
       slideBox(name).previous();
     }
     $scope.nextSlide = next;
     $scope.prevSlide = prev;
-    */
 
     // functions to format exercise stats for display
     $scope.formatWeight = function(lbs, verbose){
@@ -210,7 +236,10 @@
     // function to control rest modal between sets
     function showRestModal(){
       // if the workout is over, go to finishe & don't show rest modal
-      if($scope.setRep >= $scope.currentSet.count && $scope.setIndex === $scope.workout.sets.length - 1){return $scope.endWorkout();}
+      if($scope.setRep >= $scope.currentSet.count && $scope.setIndex === $scope.workout.sets.length - 1){
+        return $scope.endWorkout();
+      }
+
       // if there is no rest, go straight to next set
       if($scope.currentSet.rest === 0){return nextExcOrSet();}
 
@@ -221,7 +250,7 @@
           }, parseInt(($scope.currentSet.rest * 1000), 10)),
           // create modal
           restModal = $ionicPopup.show({
-            template: '<div style="text-align:center;font-size:2em;font-weight:bold;"><timer countdown="currentSet.rest" interval="1000">{{minutes}} min{{minutesS}} {{seconds}} sec{{secondsS}}</timer></div>',
+            template: '<div style="text-align:center;font-size:2em;font-weight:bold;"><timer countdown="currentSet.rest" interval="1000">{{mminutes}}:{{sseconds}}</timer></div>',
             title: 'Time To Rest',
             subTitle: 'Hit Cancel if you\'r ready to go',
             scope: $scope,

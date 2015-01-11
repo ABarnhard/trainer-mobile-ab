@@ -10,7 +10,7 @@
   </div>
   <div ng-show="currentExr.typeId === 2" class="secs">
     <h4><span ng-if="!timerRunning">{{currentExr.reps}} seconds</span>
-      <timer ng-if="timerRunning" countdown="currentExr.reps" interval="1000" finish-callback="timerFinished()">{{seconds}} second{{secondsS}}</timer>
+      <timer ng-if="timerRunning" countdown="currentExr.reps" interval="1000" finish-callback="timerFinished()">{{mminutes}}:{{sseconds}}</timer>
     </h4>
     <button ng-show="!timerDone" ng-click="startTimer()" ng-disabled="timerRunning" class="button button-block button-positive">Start</button>
     <button ng-show="timerDone" ng-click="nextExr()" class="button button-block button-positive">Next</button>
