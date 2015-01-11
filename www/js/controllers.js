@@ -70,9 +70,10 @@
     };
   }])
 
-  .controller('WorkoutCtrl', ['$scope', '$state', '$stateParams', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', 'Workout', function($scope, $state, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Workout){
+  .controller('WorkoutCtrl', ['$scope', '$state', '$stateParams', '$location', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', 'Workout', function($scope, $state, $stateParams, $location, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Workout){
     // init scope vars
     $scope.workout = {};
+    $scope.setIndex = -1;
     $scope.timerRunning = false;
     $scope.timerDone = false;
     $scope.stopSet = false;
@@ -98,17 +99,34 @@
         $scope.workout = res.data.workout;
         $ionicSlideBoxDelegate.update();
       });
+    }else{
+      $state.go('tab.dash');
     }
 
+    // function to quit workout, uses location to force refresh and reset all states
+    $scope.quit = function(){
+      $state.go('tab.dash');
+    };
+
+    $scope.startWorkout = function(){
+      next('wkSlider'); // changes slide from initial pos, which fires beginSet below
+    };
+
+    $scope.endWorkout = function(){
+      // console.log('workout is over');
+      $state.go('workout.finished', {wkName: $scope.workout.workoutName, dayId:$stateParams.dayId});
+    };
+
     // functions to control slider
-    function next(){
-      $ionicSlideBoxDelegate.next();
+    function next(name){
+      slideBox(name).next();
+      $ionicSlideBoxDelegate.update();
     }
 
     /*
     // for testing
-    function prev(){
-      $ionicSlideBoxDelegate.previous();
+    function prev(name){
+      slideBox(name).previous();
     }
     $scope.nextSlide = next;
     $scope.prevSlide = prev;
@@ -136,15 +154,6 @@
       }else{
         return rest + ' Sec';
       }
-    };
-
-    $scope.startWorkout = function(){
-      next(); // changes slide from initial pos, which fires beginSet below
-    };
-
-    $scope.endWorkout = function(){
-      // console.log('workout is over');
-      $state.go('workout.finished', {wkName: $scope.workout.workoutName, dayId:$stateParams.dayId});
     };
 
     $scope.beginSet = function(slideIndex){
@@ -200,9 +209,10 @@
 
     // function to control rest modal between sets
     function showRestModal(){
-      // if there is no rest or this was the last set, don't show modal
-      if($scope.currentSet.rest === 0){return nextExcOrSet();}
+      // if the workout is over, go to finishe & don't show rest modal
       if($scope.setRep >= $scope.currentSet.count && $scope.setIndex === $scope.workout.sets.length - 1){return $scope.endWorkout();}
+      // if there is no rest, go straight to next set
+      if($scope.currentSet.rest === 0){return nextExcOrSet();}
 
       // define handle to timeout, timeoutId is actually a promise object
       var timeoutId = $timeout(function(){
@@ -231,7 +241,7 @@
         $scope.eIndex = 0; // reset exercise index
         $scope.nextExercise();
       }else{
-        next();
+        next('wkSlider');
       }
     }
   }])

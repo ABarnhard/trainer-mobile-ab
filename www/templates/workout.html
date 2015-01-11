@@ -1,12 +1,14 @@
 
 <ion-view view-title="{{workout.workoutName}}">
-  <ion-nav-buttons side="primary"><a href="#/tab/dash" class="button">Quit</a></ion-nav-buttons>
+  <ion-nav-buttons side="primary">
+    <button ng-click="quit()" class="button">Quit</button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="secondary">
+    <button ng-show="setIndex === -1" ng-click="startWorkout()" class="button">Start</button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-slide-box delegate-handle="wkSlider" show-pager="true" on-slide-changed="beginSet($index)">
       <ion-slide>
-        <div class="padded-button-row">
-          <button ng-click="startWorkout()" class="button button-block button-stable">Start</button>
-        </div>
         <table class="workout-table">
           <tbody>
             <tr ng-repeat="set in workout.sets">
