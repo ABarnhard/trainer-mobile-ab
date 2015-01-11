@@ -78,8 +78,12 @@
     $scope.stopSet = false;
     $scope.doSet = false;
 
+    function slideBox(name){
+      return $ionicSlideBoxDelegate.$getByHandle(name);
+    }
+
     // set slide-box so it can only be controlled via script/buttons
-    angular.element(document).ready(function(){$ionicSlideBoxDelegate.enableSlide(false);});
+    angular.element(document).ready(function(){slideBox('wkSlider').enableSlide(false);});
 
     // look up workout based on state params passed in the query string
     if($stateParams.dayId){
