@@ -4,11 +4,11 @@ ion-view(view-title='{{workout.workoutName}}')
   ion-nav-buttons(side='secondary')
     button.button(ng-show='setIndex === -1', ng-click='startWorkout()') Start
     //- buttons for testing
-    button.button(ng-click='prevSlide("wkSlider")') Prev
-    button.button(ng-click='nextSlide("wkSlider")') Next
+    button.button(ng-click='prevSlide("mainSlider")') Prev
+    button.button(ng-click='nextSlide("mainSlider")') Next
   ion-content
-    ion-slide-box.test-main-class(delegate-handle='wkSlider', show-pager='true', on-slide-changed='beginSet($index)')
-      ion-slide.test-class
+    ion-slide-box(delegate-handle='mainSlider', show-pager='false', on-slide-changed='beginSet($index)')
+      ion-slide
         table.workout-table
           tbody
             tr(ng-repeat='set in workout.sets')
@@ -30,9 +30,31 @@ ion-view(view-title='{{workout.workoutName}}')
                   tbody(style='font-size:.7em;')
                     tr(ng-repeat='exercise in set.exercises')
                       td {{$index === 0 ? set.count : ' '}}
-                      td(style='text-align:left;') {{exercise.name}}
+                      td(style='text-align:left;') {{formatName(exercise.name)}}
                       td {{formatReps(exercise.reps, exercise.type)}}
                       td {{formatWeight(exercise.weight, false)}}
                       td {{$index === 0 ? formatRest(set.rest) : ' '}}
       ion-slide(ng-repeat='set in workout.sets')
-        include workout_partial
+        ion-slide-box(delegate-handle='setSlider', show-pager='true')
+          ion-slide
+            //- everthing is in $scope.workout from WorkoutCtrl
+            .wk-display(ng-class='{red: stopSet, green: doSet}')
+              h5 Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}
+              h3 {{currentExr.name}}
+            .rep-display(ng-class='{red: stopSet, green: doSet}')
+              .reps(ng-show='currentExr.typeId === 1')
+                h4 {{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}
+                button.button.button-block.button-positive(ng-click='nextExr()') Next
+              .secs(ng-show='currentExr.typeId === 2')
+                h4
+                  span(ng-if='!timerRunning') {{currentExr.reps}} seconds
+                  timer(ng-if='timerRunning', countdown='currentExr.reps', interval='1000', finish-callback='timerFinished()') {{mminutes}}:{{sseconds}}
+                button.button.button-block.button-positive(ng-show='!timerDone', ng-click='startTimer()', ng-disabled='timerRunning') Start
+                button.button.button-block.button-positive(ng-show='timerDone', ng-click='nextExr()') Next
+              .fail(ng-show='currentExr.typeId === 3')
+                h4 Till Failure
+                button.button.button-block.button-positive(ng-click='nextExr()') Next
+            ul.list(ng-show='currentSet.exercises.length > 1')
+              li.item(style='border: none;', ng-repeat='exr in currentSet.exercises', ng-class='{"active-exercise": exr.name === currentExr.name}') {{exr.name}}
+            //- pre(style='text-align:left;') {{currentExr | json}}
+            //- pre(style='text-align:left;') {{currentSet | json}}

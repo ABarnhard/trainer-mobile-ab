@@ -113,7 +113,7 @@
     }
 
     // set slide-box so it can only be controlled via script/buttons
-    angular.element(document).ready(function(){slideBox('wkSlider').enableSlide(false);});
+    angular.element(document).ready(function(){slideBox('mainSlider').enableSlide(false);});
 
     // look up workout based on state params passed in the query string
     if($stateParams.dayId){
@@ -138,7 +138,7 @@
     };
 
     $scope.startWorkout = function(){
-      next('wkSlider'); // changes slide from initial pos, which fires beginSet below
+      next('mainSlider'); // changes slide from initial pos, which fires beginSet below
     };
 
     $scope.endWorkout = function(){
@@ -179,6 +179,13 @@
         return 'None';
       }else{
         return rest + ' Sec';
+      }
+    };
+    $scope.formatName = function(name){
+      if(name.length <= 22){
+        return name;
+      }else{
+        return name.substr(0, 20) + '...';
       }
     };
 
@@ -270,7 +277,7 @@
         $scope.eIndex = 0; // reset exercise index
         $scope.nextExercise();
       }else{
-        next('wkSlider');
+        next('mainSlider');
       }
     }
   }])

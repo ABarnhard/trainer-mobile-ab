@@ -5,12 +5,12 @@
   </ion-nav-buttons>
   <ion-nav-buttons side="secondary">
     <button ng-show="setIndex === -1" ng-click="startWorkout()" class="button">Start</button>
-    <button ng-click="prevSlide(&quot;wkSlider&quot;)" class="button">Prev</button>
-    <button ng-click="nextSlide(&quot;wkSlider&quot;)" class="button">Next</button>
+    <button ng-click="prevSlide(&quot;mainSlider&quot;)" class="button">Prev</button>
+    <button ng-click="nextSlide(&quot;mainSlider&quot;)" class="button">Next</button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-slide-box delegate-handle="wkSlider" show-pager="true" on-slide-changed="beginSet($index)" class="test-main-class">
-      <ion-slide class="test-class">
+    <ion-slide-box delegate-handle="mainSlider" show-pager="false" on-slide-changed="beginSet($index)">
+      <ion-slide>
         <table class="workout-table">
           <tbody>
             <tr ng-repeat="set in workout.sets">
@@ -35,7 +35,7 @@
                   <tbody style="font-size:.7em;">
                     <tr ng-repeat="exercise in set.exercises">
                       <td>{{$index === 0 ? set.count : ' '}}</td>
-                      <td style="text-align:left;">{{exercise.name}}</td>
+                      <td style="text-align:left;">{{formatName(exercise.name)}}</td>
                       <td>{{formatReps(exercise.reps, exercise.type)}}</td>
                       <td>{{formatWeight(exercise.weight, false)}}</td>
                       <td>{{$index === 0 ? formatRest(set.rest) : ' '}}</td>
@@ -48,30 +48,34 @@
         </table>
       </ion-slide>
       <ion-slide ng-repeat="set in workout.sets">
-        <div ng-class="{red: stopSet, green: doSet}" class="wk-display">
-          <h5>Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}</h5>
-          <h3>{{currentExr.name}}</h3>
-        </div>
-        <div ng-class="{red: stopSet, green: doSet}" class="rep-display">
-          <div ng-show="currentExr.typeId === 1" class="reps">
-            <h4>{{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}</h4>
-            <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
-          </div>
-          <div ng-show="currentExr.typeId === 2" class="secs">
-            <h4><span ng-if="!timerRunning">{{currentExr.reps}} seconds</span>
-              <timer ng-if="timerRunning" countdown="currentExr.reps" interval="1000" finish-callback="timerFinished()">{{mminutes}}:{{sseconds}}</timer>
-            </h4>
-            <button ng-show="!timerDone" ng-click="startTimer()" ng-disabled="timerRunning" class="button button-block button-positive">Start</button>
-            <button ng-show="timerDone" ng-click="nextExr()" class="button button-block button-positive">Next</button>
-          </div>
-          <div ng-show="currentExr.typeId === 3" class="fail">
-            <h4>Till Failure</h4>
-            <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
-          </div>
-        </div>
-        <ul ng-show="currentSet.exercises.length &gt; 1" class="list">
-          <li style="border: none;" ng-repeat="exr in currentSet.exercises" ng-class="{&quot;active-exercise&quot;: exr.name === currentExr.name}" class="item">{{exr.name}}</li>
-        </ul>
+        <ion-slide-box delegate-handle="setSlider" show-pager="true">
+          <ion-slide>
+            <div ng-class="{red: stopSet, green: doSet}" class="wk-display">
+              <h5>Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}</h5>
+              <h3>{{currentExr.name}}</h3>
+            </div>
+            <div ng-class="{red: stopSet, green: doSet}" class="rep-display">
+              <div ng-show="currentExr.typeId === 1" class="reps">
+                <h4>{{currentExr.reps}} Reps &#64; {{formatWeight(currentExr.weight, true)}}</h4>
+                <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
+              </div>
+              <div ng-show="currentExr.typeId === 2" class="secs">
+                <h4><span ng-if="!timerRunning">{{currentExr.reps}} seconds</span>
+                  <timer ng-if="timerRunning" countdown="currentExr.reps" interval="1000" finish-callback="timerFinished()">{{mminutes}}:{{sseconds}}</timer>
+                </h4>
+                <button ng-show="!timerDone" ng-click="startTimer()" ng-disabled="timerRunning" class="button button-block button-positive">Start</button>
+                <button ng-show="timerDone" ng-click="nextExr()" class="button button-block button-positive">Next</button>
+              </div>
+              <div ng-show="currentExr.typeId === 3" class="fail">
+                <h4>Till Failure</h4>
+                <button ng-click="nextExr()" class="button button-block button-positive">Next</button>
+              </div>
+            </div>
+            <ul ng-show="currentSet.exercises.length &gt; 1" class="list">
+              <li style="border: none;" ng-repeat="exr in currentSet.exercises" ng-class="{&quot;active-exercise&quot;: exr.name === currentExr.name}" class="item">{{exr.name}}</li>
+            </ul>
+          </ion-slide>
+        </ion-slide-box>
       </ion-slide>
     </ion-slide-box>
   </ion-content>

@@ -1,17 +1,12 @@
 /* Empty. Add your own CSS if you like */
 
-/* ----------- nav bar styles ----------- */
-ion-nav-bar {
-  height: 43px;
-}
-
 /* ----------- global style ------------- */
 .padded-row {
   padding: 0 1em;
 }
 
 /* ----------- workout styles ------------ */
-.slider-slide {
+.slider {
   height: 100%;
   text-align: center;
 }
@@ -25,13 +20,14 @@ ion-nav-bar {
   height: 100%;
 }
 
+.workout-table {
+  padding: 1em;
+  height: 100%;
+}
+
 .workout-table, .exercise-table {
   display: inline-block;
   width: 100%;
-}
-
-.workout-table {
-  padding: 1em;
 }
 
 .exercise-table th, .exercise-table td {
