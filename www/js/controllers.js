@@ -71,6 +71,8 @@
   }])
 
   .controller('WorkoutCtrl', ['$scope', '$state', '$stateParams', '$location', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', 'Workout', function($scope, $state, $stateParams, $location, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Workout){
+    $scope.beginExercise = function(index){console.log(index);};
+
     /*
     function startTimer(sectionId) {
       document.getElementById(sectionId).getElementsByTagName('timer')[0].start();
@@ -109,6 +111,7 @@
     $scope.doSet = false;
 
     function slideBox(name){
+      $ionicSlideBoxDelegate.update();
       return $ionicSlideBoxDelegate.$getByHandle(name);
     }
 
@@ -120,13 +123,17 @@
       // console.log('dayId:', $stateParams.dayId);
       Workout.findByDayId($stateParams.dayId).then(function(res){
         $scope.workout = res.data.workout;
-        $ionicSlideBoxDelegate.update();
+        $timeout(function(){
+          $ionicSlideBoxDelegate.update();
+        }, 0);
       });
     }else if($stateParams.wkId){
       // console.log('wkId:', $stateParams.wkId);
       Workout.findById($stateParams.wkId).then(function(res){
         $scope.workout = res.data.workout;
-        $ionicSlideBoxDelegate.update();
+        $timeout(function(){
+          $ionicSlideBoxDelegate.update();
+        }, 0);
       });
     }else{
       $state.go('tab.dash');
@@ -148,7 +155,7 @@
 
     // functions to control slider
     function next(name){
-      slideBox(name).next();
+      $timeout(function(){slideBox(name).next();}, 0);
     }
 
     // for testing

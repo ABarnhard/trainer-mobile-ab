@@ -35,8 +35,10 @@ ion-view(view-title='{{workout.workoutName}}')
                       td {{formatWeight(exercise.weight, false)}}
                       td {{$index === 0 ? formatRest(set.rest) : ' '}}
       ion-slide(ng-repeat='set in workout.sets')
-        ion-slide-box(delegate-handle='setSlider', show-pager='true')
+        ion-slide-box(delegate-handle='setSlider0', show-pager='false', on-slide-changed='beginExercise($index)')
           ion-slide
+            button.button(ng-click='prevSlide("setSlider" + $index)') Prev
+            button.button(ng-click='nextSlide("setSlider" + $index)') Next
             //- everthing is in $scope.workout from WorkoutCtrl
             .wk-display(ng-class='{red: stopSet, green: doSet}')
               h5 Sets: {{setRep}} of {{currentSet.count}}, Rest: {{formatRest(currentSet.rest)}}
@@ -58,3 +60,6 @@ ion-view(view-title='{{workout.workoutName}}')
               li.item(style='border: none;', ng-repeat='exr in currentSet.exercises', ng-class='{"active-exercise": exr.name === currentExr.name}') {{exr.name}}
             //- pre(style='text-align:left;') {{currentExr | json}}
             //- pre(style='text-align:left;') {{currentSet | json}}
+          ion-slide
+            h2 slide 2
+
