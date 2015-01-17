@@ -116,7 +116,7 @@
     }
 
     // set slide-box so it can only be controlled via script/buttons
-    angular.element(document).ready(function(){slideBox('mainSlider').enableSlide(false);});
+    angular.element(document).ready($timeout(function(){slideBox('mainSlider').enableSlide(false);}), 0);
 
     // look up workout based on state params passed in the query string
     if($stateParams.dayId){
