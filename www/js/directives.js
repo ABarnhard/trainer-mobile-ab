@@ -12,7 +12,9 @@
         workout:'=wk',
         mainSlideChange: '&mSlideChange'
       },
-      controller: function($scope, $element, $attrs, $transclude){},
+      controller: function($scope, $element, $attrs, $transclude){
+        console.log($attrs.wk);
+      },
       compile: function compile(tElement, tAttrs, transclude){
         return {
           pre: function preLink(scope, iElement, iAttrs){},

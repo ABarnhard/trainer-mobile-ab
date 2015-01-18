@@ -25,7 +25,7 @@
               <tbody style="font-size:.7em;">
                 <tr ng-repeat="exercise in set.exercises">
                   <td>{{$index === 0 ? set.count : ' '}}</td>
-                  <td style="text-align:left;">{{formatName(exercise.name)}}</td>
+                  <td style="text-align:left;">{{formatName(set.exercise.name)}}</td>
                   <td>{{formatReps(exercise.reps, exercise.type)}}</td>
                   <td>{{formatWeight(exercise.weight, false)}}</td>
                   <td>{{$index === 0 ? formatRest(set.rest) : ' '}}</td>

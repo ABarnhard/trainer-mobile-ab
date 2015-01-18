@@ -21,7 +21,7 @@ ion-slide-box#workout-slidebox(delegate-handle='mainSlider', show-pager='false',
               tbody(style='font-size:.7em;')
                 tr(ng-repeat='exercise in set.exercises')
                   td {{$index === 0 ? set.count : ' '}}
-                  td(style='text-align:left;') {{formatName(exercise.name)}}
+                  td(style='text-align:left;') {{formatName(set.exercise.name)}}
                   td {{formatReps(exercise.reps, exercise.type)}}
                   td {{formatWeight(exercise.weight, false)}}
                   td {{$index === 0 ? formatRest(set.rest) : ' '}}
