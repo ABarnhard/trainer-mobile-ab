@@ -20,7 +20,7 @@
     $stateProvider
     .state('login', {
       url: '/login',
-      templateUrl: 'templates/login.html',
+      templateUrl: 'templates/user/login.html',
       controller: 'LoginCtrl'
     })
 
@@ -28,25 +28,25 @@
       cache: false,
       url: '/workout',
       abstract: true,
-      templateUrl: 'templates/workouts.html'
+      templateUrl: 'templates/workout/workouts.html'
     })
 
     .state('workout.do', {
       url: '?wkId&dayId',
-      templateUrl: 'templates/workout.html',
+      templateUrl: 'templates/workout/workout.html',
       controller: 'WorkoutCtrl'
     })
 
     .state('workout.finished', {
       url: '/finished?wkName&dayId',
-      templateUrl: 'templates/workout_finished.html',
+      templateUrl: 'templates/workout/workout_finished.html',
       controller: 'wkFinishedCtrl'
     })
 
     .state('tab', {
       url: '/tab',
       abstract: true,
-      templateUrl: 'templates/tabs.html'
+      templateUrl: 'templates/tabs/tabs.html'
     })
 
     // Each tab has its own nav history stack:
@@ -54,7 +54,7 @@
       url: '/dash',
       views: {
         'tab-dash': {
-          templateUrl: 'templates/tab-dash.html',
+          templateUrl: 'templates/tabs/tab-dash.html',
           controller: 'DashCtrl'
         }
       }
@@ -64,7 +64,7 @@
       url: '/regimes',
       views: {
         'tab-workouts': {
-          templateUrl: 'templates/tab-regimes.html',
+          templateUrl: 'templates/tabs/tab-regimes.html',
           controller: 'RegimesCtrl'
         }
       }
@@ -74,7 +74,7 @@
       url: '/regimes/:regimeId',
       views: {
         'tab-workouts': {
-          templateUrl: 'templates/tab-phases.html',
+          templateUrl: 'templates/tabs/tab-phases.html',
           controller: 'PhasesCtrl'
         }
       }
@@ -84,7 +84,7 @@
       url: '/regimes/:regimeId/phases/:phaseId',
       views: {
         'tab-workouts': {
-          templateUrl: 'templates/tab-workouts.html',
+          templateUrl: 'templates/tabs/tab-workouts.html',
           controller: 'WorkoutsTabCtrl'
         }
       }
@@ -94,7 +94,7 @@
       url: '/account',
       views: {
         'tab-account': {
-          templateUrl: 'templates/tab-account.html',
+          templateUrl: 'templates/tabs/tab-account.html',
           controller: 'AccountCtrl'
         }
       }
