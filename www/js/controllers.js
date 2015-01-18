@@ -70,7 +70,7 @@
     };
   }])
 
-  .controller('WorkoutCtrl', ['$scope', '$state', '$stateParams', '$location', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', 'Workout', function($scope, $state, $stateParams, $location, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Workout){
+  .controller('WorkoutCtrl', ['$scope', '$state', '$stateParams', '$location', '$ionicSlideBoxDelegate', '$ionicPopup', '$timeout', '$compile', 'Workout', function($scope, $state, $stateParams, $location, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $compile, Workout){
     $scope.beginExercise = function(index){console.log(index);};
 
     /*
@@ -116,13 +116,19 @@
     }
 
     // set slide-box so it can only be controlled via script/buttons
-    angular.element(document).ready($timeout(function(){slideBox('mainSlider').enableSlide(false);}), 0);
+    angular.element(document).ready($timeout(function(){slideBox('mainSlider').enableSlide(false);}, 0));
+    //angular.element(document).ready($timeout(function(){$ionicSlideBoxDelegate.enableSlide(false);}, 0));
 
     // look up workout based on state params passed in the query string
     if($stateParams.dayId){
       // console.log('dayId:', $stateParams.dayId);
       Workout.findByDayId($stateParams.dayId).then(function(res){
         $scope.workout = res.data.workout;
+        // var $slide = angular.element('<ion-slide><ion-slide-box delegate-handle="setSliderTest" show-pager="false" on-slide-changed="beginExercise($index)"><ion-slide><h2>Test slide inside manually apended slider</h2></ion-slide></ion-slide-box></ion-slide>'),
+        var slide  = '<ion-slide><ion-slide-box delegate-handle="setSliderTest" show-pager="false" on-slide-changed="beginExercise($index)"><ion-slide><h2>Test slide inside manually apended slider</h2></ion-slide></ion-slide-box></ion-slide>',
+            $slide = $compile(slide)($scope);
+        console.log($slide);
+        angular.element('#workout-slidebox .slider-slides').append($slide);
         $timeout(function(){
           $ionicSlideBoxDelegate.update();
         }, 0);
@@ -131,9 +137,14 @@
       // console.log('wkId:', $stateParams.wkId);
       Workout.findById($stateParams.wkId).then(function(res){
         $scope.workout = res.data.workout;
-        $timeout(function(){
-          $ionicSlideBoxDelegate.update();
-        }, 0);
+        // var $slide = angular.element('<ion-slide><ion-slide-box delegate-handle="setSliderTest" show-pager="false" on-slide-changed="beginExercise($index)"><ion-slide><h2>Test slide inside manually apended slider</h2></ion-slide></ion-slide-box></ion-slide>'),
+        var slide  = '<ion-slide-box delegate-handle="setSliderTest" show-pager="false" on-slide-changed="beginExercise($index)"><ion-slide><h2>Test slide inside manually apended slider</h2></ion-slide></ion-slide-box>',
+            $slide = $compile(slide)($scope);
+        // console.log($slide);
+        $timeout(function(){angular.element('#workout-slidebox .slider-slides ion-slide[data-index="1"]').append($slide);}, 1);
+        //$timeout(function(){
+        //  $ionicSlideBoxDelegate.update();
+        //  }, 0);
       });
     }else{
       $state.go('tab.dash');
