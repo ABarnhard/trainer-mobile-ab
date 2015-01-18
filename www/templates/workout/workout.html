@@ -9,45 +9,6 @@
     <button ng-click="nextSlide(&quot;mainSlider&quot;)" class="button">Next</button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-slide-box id="workout-slidebox" delegate-handle="mainSlider" show-pager="false" on-slide-changed="beginSet($index)">
-      <ion-slide>
-        <table class="workout-table">
-          <tbody>
-            <tr ng-repeat="set in workout.sets">
-              <td colspan="5" style="text-align:center;">
-                <table style="display:inline-block;" class="exercise-table">
-                  <thead>
-                    <tr ng-show="$index === 0">
-                      <th style="width:32px;">Sets</th>
-                      <th style="text-align:left;width:130px;">Exercises</th>
-                      <th style="width:50px;">Reps</th>
-                      <th style="width:60px;">Weight</th>
-                      <th style="width:50px;">Rest</th>
-                    </tr>
-                    <tr ng-show="$index !== 0">
-                      <th style="width:32px;"></th>
-                      <th style="width:130px;"></th>
-                      <th style="width:50px;"></th>
-                      <th style="width:60px;"></th>
-                      <th style="width:50px;"></th>
-                    </tr>
-                  </thead>
-                  <tbody style="font-size:.7em;">
-                    <tr ng-repeat="exercise in set.exercises">
-                      <td>{{$index === 0 ? set.count : ' '}}</td>
-                      <td style="text-align:left;">{{formatName(exercise.name)}}</td>
-                      <td>{{formatReps(exercise.reps, exercise.type)}}</td>
-                      <td>{{formatWeight(exercise.weight, false)}}</td>
-                      <td>{{$index === 0 ? formatRest(set.rest) : ' '}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </ion-slide>
-      <ion-slide ng-repeat="set in workout.sets"></ion-slide>
-    </ion-slide-box>
+    <workout-slider wk="workout" m-slide-change="beginSet($index)"></workout-slider>
   </ion-content>
 </ion-view>

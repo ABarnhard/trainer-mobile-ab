@@ -7,34 +7,8 @@ ion-view(view-title='{{workout.workoutName}}')
     button.button(ng-click='prevSlide("mainSlider")') Prev
     button.button(ng-click='nextSlide("mainSlider")') Next
   ion-content
-    ion-slide-box#workout-slidebox(delegate-handle='mainSlider', show-pager='false', on-slide-changed='beginSet($index)')
-      ion-slide
-        table.workout-table
-          tbody
-            tr(ng-repeat='set in workout.sets')
-              td(colspan='5', style='text-align:center;')
-                table.exercise-table(style='display:inline-block;')
-                  thead
-                    tr(ng-show='$index === 0')
-                      th(style='width:32px;') Sets
-                      th(style='text-align:left;width:130px;') Exercises
-                      th(style='width:50px;') Reps
-                      th(style='width:60px;') Weight
-                      th(style='width:50px;') Rest
-                    tr(ng-show='$index !== 0')
-                      th(style='width:32px;')
-                      th(style='width:130px;')
-                      th(style='width:50px;')
-                      th(style='width:60px;')
-                      th(style='width:50px;')
-                  tbody(style='font-size:.7em;')
-                    tr(ng-repeat='exercise in set.exercises')
-                      td {{$index === 0 ? set.count : ' '}}
-                      td(style='text-align:left;') {{formatName(exercise.name)}}
-                      td {{formatReps(exercise.reps, exercise.type)}}
-                      td {{formatWeight(exercise.weight, false)}}
-                      td {{$index === 0 ? formatRest(set.rest) : ' '}}
-      ion-slide(ng-repeat='set in workout.sets')
+    workout-slider(wk='workout', m-slide-change='beginSet($index)')
+
 
 
 

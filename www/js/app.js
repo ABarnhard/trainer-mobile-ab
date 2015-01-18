@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  angular.module('trainer', ['ionic', 'timer', 'trainer.controllers', 'trainer.services', 'trainer.values'])
+  angular.module('trainer', ['ionic', 'timer', 'trainer.controllers', 'trainer.services', 'trainer.values', 'trainer.directives'])
   .run(function($ionicPlatform){
     $ionicPlatform.ready(function(){
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
